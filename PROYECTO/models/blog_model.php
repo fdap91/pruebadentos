@@ -14,5 +14,23 @@ class blog_model{
         }
         return $this->blog;
     }
+
+    public function get_blogdate($fechadesde,$fechahasta){
+        $filtroextra = '';
+        if($fechadesde !=''){
+            $filtroextra .=' AND createdate >= "'.$fechadesde.'"';
+        }
+
+
+        if($fechahasta !=''){
+             $filtroextra .=' AND createdate <= "'.$fechahasta.'"';
+        }
+
+        $consulta=$this->db->query("SELECT * FROM blog WHERE status = 1 ".$filtroextra.";");
+        while($filas=$consulta->fetch_assoc()){
+            $this->blog[]=$filas;
+        }
+        return $this->blog;
+    }
 }
 ?>

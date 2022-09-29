@@ -116,6 +116,13 @@ $(document).ready(function(){
     defaultDate: "-40y",
     dateFormat: "dd/mm/yy"
   });
+
+
+  $('#Buscador_fechaDesde,#Buscador_fechaHasta').datepicker({
+    changeYear: true,
+    dateFormat: "dd/mm/yy"
+  }); 
+
 });
 
 $('#ModalRegistro_btnregistrar').click(function(){
@@ -233,3 +240,48 @@ if(Nombre == '' || Apellido == '' || FechaNacimiento == '' || Correo == '' || co
 
 }
 });
+
+
+
+$('#Buscador_btnbuscar').click(function(){
+let fechaDesde = $('#Buscador_fechaDesde').val();
+let fechaHasta = $('#Buscador_fechaHasta').val();
+ 
+$('#Buscador_btnbuscar').addClass('m-progress');
+      var url = "controllers/blog_search_controller.php?op=search";
+      $.post(url, {
+        fechaDesde:fechaDesde,
+        fechaHasta:fechaHasta
+      },
+        function(responseText) { 
+          console.log(responseText);
+          var abc = jQuery.parseJSON(responseText); 
+
+          if(abc.error == 1){ 
+            $('#loadblogs').html('');
+
+            for (var i = 0; i < abc.data.length; i++) {
+              console.log(abc.data[i])
+
+              $('#loadblogs').append('<div class="col-sm-4 mb-3">'+
+                                '<div class="card">'+
+                                    '<img src="https://picsum.photos/200/200?random='+abc.data[i]['idblog']+'" width="100%" height="250px">'+
+                                    '<div class="card-body">'+
+                                        '<h5 class="card-title">'+abc.data[i]['titulo']+'</h5>'+
+                                        '<p class="card-text fw-light fs-6 " style="text-align: justify;">'+abc.data[i]['descripcion']+'</p>'+
+                                        '<p class="card-text text-end"><small class="text-muted">'+abc.data[i]['createdate']+'</small></p>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>')
+            }
+          }else{
+              $('#loadblogs').html('<div class="col-sm-12 mb-3 text-center"><h3 class="text-warning">No se encontraron publicaciones para mostrar</h3></div>');
+
+          }
+
+          $('#Buscador_btnbuscar').removeClass('m-progress'); 
+      });
+
+
+});
+
