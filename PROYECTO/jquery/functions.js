@@ -253,15 +253,13 @@ $('#Buscador_btnbuscar').addClass('m-progress');
         fechaDesde:fechaDesde,
         fechaHasta:fechaHasta
       },
-        function(responseText) { 
-          console.log(responseText);
+        function(responseText) {  
           var abc = jQuery.parseJSON(responseText); 
 
           if(abc.error == 1){ 
             $('#loadblogs').html('');
 
-            for (var i = 0; i < abc.data.length; i++) {
-              console.log(abc.data[i])
+            for (var i = 0; i < abc.data.length; i++) { 
 
               $('#loadblogs').append('<div class="col-sm-4 mb-3">'+
                                 '<div class="card">'+
@@ -285,3 +283,98 @@ $('#Buscador_btnbuscar').addClass('m-progress');
 
 });
 
+
+$('#Buscador_btnlimpiar').click(function(){
+  $('#Buscador_fechaDesde').val('');
+  $('#Buscador_fechaHasta').val('');
+
+  $('#Buscador_btnbuscar').addClass('m-progress');
+      var url = "controllers/blog_search_controller.php?op=search";
+      $.post(url, {
+        fechaDesde:'',
+        fechaHasta:''
+      },
+        function(responseText) {
+        console.log(responseText);
+          var abc = jQuery.parseJSON(responseText); 
+
+          if(abc.error == 1){ 
+            $('#loadblogs').html('');
+
+            for (var i = 0; i < abc.data.length; i++) { 
+
+              $('#loadblogs').append('<div class="col-sm-4 mb-3">'+
+                                '<div class="card">'+
+                                    '<img src="https://picsum.photos/200/200?random='+abc.data[i]['idblog']+'" width="100%" height="250px">'+
+                                    '<div class="card-body">'+
+                                        '<h5 class="card-title">'+abc.data[i]['titulo']+'</h5>'+
+                                        '<p class="card-text fw-light fs-6 " style="text-align: justify;">'+abc.data[i]['descripcion']+'</p>'+
+                                        '<p class="card-text text-end"><small class="text-muted">'+abc.data[i]['createdate']+'</small></p>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>')
+            }
+          }else{
+              $('#loadblogs').html('<div class="col-sm-12 mb-3 text-center"><h3 class="text-warning">No se encontraron publicaciones para mostrar</h3></div>');
+
+          }
+
+          $('#Buscador_btnbuscar').removeClass('m-progress'); 
+      });
+
+});
+
+
+$('#Modalcrearblog_btncrear').click(function(){
+let titulo = $('#Modalcrearblog_titulo').val();
+let descripcion = $('#Modalcrearblog_descripcion').val();
+
+if(titulo == '' || descripcion == ''){
+
+  haserror("Modalcrearblog_titulo");
+  haserror("Modalcrearblog_descripcion");
+
+  Swal.fire({
+    icon: 'warning',
+    title: 'Advertencia',
+    text: 'Algunos Campos estan vacios'
+  })
+
+}else{ 
+    $('#Modalcrearblog_btncrear').addClass('m-progress');
+    var url = "controllers/mispublicaciones_create_controller.php?op=register";
+    $.post(url, {
+      titulo:titulo,
+      descripcion:descripcion,
+    },
+      function(responseText) { 
+        console.log(responseText);
+        var abc = jQuery.parseJSON(responseText); 
+
+        if(abc.error == 1){
+           
+           Swal.fire({
+            icon: 'success',
+            title: 'Exito',
+            text: 'El Blog se registro'
+          })
+
+
+           setTimeout(function(){
+            window.location.reload();
+          },2000);
+
+        }else{
+           
+           Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'El usuario o la Contraseña no son Correctos'
+          })
+
+        }
+
+        $('#Modalcrearblog_btncrear').removeClass('m-progress'); 
+    });
+}
+});

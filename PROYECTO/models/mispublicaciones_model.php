@@ -1,5 +1,5 @@
 <?php
-class blog_model{
+class mispublicaicones_model{
     private $db;
     private $blog;
  
@@ -15,22 +15,20 @@ class blog_model{
         return $this->blog;
     }
 
-    public function get_blogdate($fechadesde,$fechahasta){
-        $filtroextra = '';
-        if($fechadesde !=''){
-            $filtroextra .=' AND createdate >= "'.$fechadesde.' 00:01"';
-        }
-
-
-        if($fechahasta !=''){
-             $filtroextra .=' AND createdate <= "'.$fechahasta.' 23:59"';
-        }
+    public function get_bloguser($idusuario){
+        $filtroextra = ' AND idusuario = '.$idusuario;
 
         $consulta=$this->db->query("SELECT * FROM blog WHERE status = 1 ".$filtroextra.";");
         while($filas=$consulta->fetch_assoc()){
             $this->blog[]=$filas;
         }
         return $this->blog;
+    }
+    public function register_blog($idusuario,$titulo,$descripcion,$createdate){
+
+        $consulta=$this->db->query("INSERT INTO `blog` (idusuario,titulo,descripcion,createdate,status) 
+    VALUES ('$idusuario', '$titulo', '$descripcion', '$createdate',1)"); 
+        return $consulta;
     }
 }
 ?>

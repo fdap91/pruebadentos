@@ -12,10 +12,17 @@ if($option == 'search'){
 		$fechaDesde =  $_POST['fechaDesde'];
 		$fechaHasta =  $_POST['fechaHasta'];
 
-		$sepdate = explode('/', $fechaDesde);
-		$formatfeachadesde = $sepdate[2].'-'.$sepdate[1].'-'.$sepdate[0];
-		$sepdate2 = explode('/', $fechaHasta);
-		$formatfeachahasta = $sepdate2[2].'-'.$sepdate2[1].'-'.$sepdate2[0];
+		if($fechaDesde != '' && $fechaHasta != ''){
+			$sepdate = explode('/', $fechaDesde);
+			$formatfeachadesde = $sepdate[2].'-'.$sepdate[1].'-'.$sepdate[0];
+			$sepdate2 = explode('/', $fechaHasta);
+			$formatfeachahasta = $sepdate2[2].'-'.$sepdate2[1].'-'.$sepdate2[0];
+		}else{
+			$formatfeachadesde= '';
+			$formatfeachahasta= '';
+		}
+
+		
  
 
 
@@ -25,7 +32,13 @@ if($option == 'search'){
 			$datos=$blog->get_blogdate($formatfeachadesde,$formatfeachahasta);
 
 			if(count($datos) > 0){
-				$result['data'] = $datos;
+ 				
+ 				for ($i=0; $i < count($datos) ; $i++) { 
+ 					$datos[$i]['createdate'] = date("d/m/Y", strtotime($datos[$i]['createdate'] ));
+ 				}
+ 				$result['data'] = $datos;
+
+
 				$result['error'] = 1; 
 			}
 		}else

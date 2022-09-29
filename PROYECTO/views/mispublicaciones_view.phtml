@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Personas</title>
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
+        <link rel="stylesheet" type="text/css" href="css/mystyle.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    </head>
+    <body>
+        <?php require_once("menu_view.phtml"); ?>
+
+        <div class="container">            
+            <div class="row">  
+                <div class="col-sm-12 mb-3">
+                    <div class="card">
+                      <div class="card-header">
+                        Acciones
+                      </div>
+                      <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-10"></div> 
+                            <div class="col-sm-2"> 
+                                <button class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#Modalcrearblog">Crear Blog</button> 
+                            </div>
+                        </div> 
+                      </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col" width="5%">ID</th>
+                          <th scope="col" width="10%">Fecha de Creado</th>
+                          <th scope="col" width="15%">Titulo</th>
+                          <th scope="col">Descripcion</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        <?php
+                            foreach ($datos as $dato) {
+                                $idblog = $dato["idblog"];
+                                echo '<tr>
+                                        <td>'.$idblog.'</td>    
+                                        <td>'.date("d/m/Y", strtotime($dato["createdate"])).'</td>
+                                        <td>'.$dato["titulo"].'</td>
+                                        <td style="text-align: justify;">'.$dato["descripcion"].'</td>
+                                    </tr>'; 
+                            }
+                        ?>   
+                         
+                      </tbody>
+                    </table>
+                </div>
+                  
+            </div>
+        </div>
+
+        
+
+        <div class="modal fade" id="Modalcrearblog" tabindex="-1" aria-labelledby="ModalLoginLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLoginLabel">Crear Blog</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="mb-3">
+          <label for="Modalcrearblog_titulo" class="form-label">Titulo</label>
+          <input type="text" class="form-control" id="Modalcrearblog_titulo" placeholder="Titulo">
+        </div>
+
+        <div class="mb-3">
+          <label for="Modalcrearblog_descripcion" class="form-label">Descripcion</label>
+          <textarea  class="form-control" id="Modalcrearblog_descripcion" placeholder="Descripcion" rows="10"></textarea>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id='Modalcrearblog_btncrear'>Crear Blog</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <?php require_once("modals_view.phtml"); ?>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="vendor/jquery/jquery-3.6.1.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+        <script src="jquery/functions.js?v=<?php echo time(); ?>"></script>
+    </body>
+</html>
