@@ -8,7 +8,7 @@ class blog_model{
         $this->blog=array();
     }
     public function get_blog(){
-        $consulta=$this->db->query("select * from blog;");
+        $consulta=$this->db->query("SELECT * FROM blog WHERE status = 1;");
         while($filas=$consulta->fetch_assoc()){
             $this->blog[]=$filas;
         }

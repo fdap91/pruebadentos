@@ -14,13 +14,15 @@
                   </a>
                   <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
 
-                    <?php
-                      if($session_idusario != ''){
-                        echo '<li><p>'.$session_nombre.' '.$session_apellido.'</p></li>
+                    <?php 
+                      if($datosusuarios["session_idusario"] !=''){
+                        echo '<li class="text-center fw-bold"><p>'.$datosusuarios["session_nombre"].' '.$datosusuarios["session_apellido"].'</p></li>
+                          <li><a class="dropdown-item" href="?view=mispublicaciones">Mis Publicaciones</a></li>
                           <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="#">Sign out</a></li>';
+                          <li><a class="dropdown-item" href="logout.php">Cerrar Sesion</a></li>';
                       }else{
-                        echo '<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalLogin">Login</a></li>';
+                        echo '<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalRegistro">Registro</a></li>
+                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalLogin">Iniciar Sesion</a></li>';
                       }
                     ?>
  
