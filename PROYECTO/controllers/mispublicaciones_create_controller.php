@@ -19,7 +19,7 @@ if($option == 'register'){
 		$buscarsessionuser = $usuarios->get_info_session(); 
 
 		$mispublicaicones_model=new mispublicaicones_model();
- 
+
 		if($buscarsessionuser['session_idusario'] |= ''){
 			
 			$datos=$mispublicaicones_model->register_blog($buscarsessionuser['session_idusario'],$titulo,$descripcion,$fechaToday);
@@ -35,6 +35,31 @@ if($option == 'register'){
 		echo json_encode($result);
 
 	}
+
+}else if($option == 'listar'){
+
+	require_once("../models/mispublicaciones_model.php");
+	require_once("../models/user_model.php");
+	$usuarios=new usuarios_model();
+	$datosusuarios=$usuarios->get_info_session();	
+
+
+	$result = array('error' => 0);
+		if($datosusuarios['session_idusario'] |= ''){
+			
+			$blog=new mispublicaicones_model();
+			$datos=$blog->get_bloguser($datosusuarios["session_idusario"]);
+
+			if($datos){
+				$result['error'] = 1;
+				$result['data'] = $datos;
+			}
+		}else{
+			$result['error'] = 3;
+		}
+		 
+
+		echo json_encode($result);
 
 }
 

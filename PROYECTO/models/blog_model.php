@@ -8,7 +8,7 @@ class blog_model{
         $this->blog=array();
     }
     public function get_blog(){
-        $consulta=$this->db->query("SELECT * FROM blog WHERE status = 1;");
+        $consulta=$this->db->query("SELECT * FROM blog WHERE status = 1 ORDER BY createdate DESC;");
         while($filas=$consulta->fetch_assoc()){
             $this->blog[]=$filas;
         }
@@ -26,7 +26,7 @@ class blog_model{
              $filtroextra .=' AND createdate <= "'.$fechahasta.' 23:59"';
         }
 
-        $consulta=$this->db->query("SELECT * FROM blog WHERE status = 1 ".$filtroextra.";");
+        $consulta=$this->db->query("SELECT * FROM blog WHERE status = 1 ".$filtroextra." ORDER BY createdate DESC;");
         while($filas=$consulta->fetch_assoc()){
             $this->blog[]=$filas;
         }

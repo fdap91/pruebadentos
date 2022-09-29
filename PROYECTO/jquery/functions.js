@@ -378,3 +378,21 @@ if(titulo == '' || descripcion == ''){
     });
 }
 });
+
+
+
+
+ 
+
+
+$('#ModalExportar').on('shown.bs.modal', function (e) {
+  
+  var url = "controllers/mispublicaciones_create_controller.php?op=listar";
+    $.post(url, {},
+      function(responseText) { 
+        var abc = jQuery.parseJSON(responseText);  
+
+        $('#ModalExportar_json').val(JSON.stringify(abc.data));
+    });
+
+})
