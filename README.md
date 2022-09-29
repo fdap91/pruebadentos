@@ -2,7 +2,9 @@
 Este es un repositorio con el proyecto para la prueba de Desarrollador php
 
 # Usuario Adminstrador
-Las Credenciales para el usuario administrador son las siguientes correo: admin@admin.com y contraseña: 123456
+Las Credenciales para el usuario administrador son las siguientes 
+correo: admin@admin.com <br/>
+contraseña: 123456
 
 # Base de datos
 En el repositorio se coloco una copia de la base de datos con la estructura principal y la informacion base del proyecto, esta en mysql.
