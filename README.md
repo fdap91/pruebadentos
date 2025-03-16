@@ -14,3 +14,4 @@ En el repositorio se coloco una copia de la base de datos con la estructura prin
 2.- Clonar la carpeta PROYECTO dentro del servidor que se este utilizando <br/>
 3.- Modificar el archivo db/db.php que esta dentro de la carpeta PROYECTO con la informacion de la base de datos <br/>
 4.- Disfrutar
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/fdap91/pruebadentos?utm_source=oss&utm_medium=github&utm_campaign=fdap91%2Fpruebadentos&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
